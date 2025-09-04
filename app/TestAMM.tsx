@@ -67,9 +67,7 @@ const TestAMM = () => {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
 
-  const onChange = (e: {
-    target: { name: string; value: string };
-  }) => {
+  const onChange = (e: { target: { name: string; value: string } }) => {
     const { value } = e.target;
     setOutput(value);
   };
@@ -142,7 +140,9 @@ const TestAMM = () => {
       poolParams
     );
 
-    const amountInWithSlippage = get(res, "amountInWithSlippage", '').toString();
+    const amountInWithSlippage = get(res, "amountInWithSlippage", 0)
+      .toFixed(6)
+      .toString();
     console.log("🚀 ~ onSwap ~ amountInWithSlippage:", amountInWithSlippage);
     const result = await swapSaros(
       connection,
@@ -164,24 +164,37 @@ const TestAMM = () => {
     setOutput("");
   };
 
+  console.log(input);
+
   return (
-    <div>
+    <div
+      style={{
+        maxWidth: "360px",
+        margin: "40px auto 0",
+      }}
+    >
       TestAMM
-      <div style={{ display: "flex" }}>
-        <div>
+      <div style={{ display: "flex", gap: 12 }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+          }}
+        >
           <div>{USDC_TOKEN.name}</div>
           <input
-            style={{ border: "1px solid black" }}
+            style={{ border: "1px solid black", padding: 4 }}
             placeholder="Input"
             // onChange={onChange}
-            value={input}
+            value={Number(input).toFixed(6)}
             name="input"
           />
         </div>
-        <div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div>{SAROS_TOKEN.name}</div>
           <input
-            style={{ border: "1px solid black" }}
+            style={{ border: "1px solid black", padding: 4 }}
             placeholder="Output"
             value={output}
             name="output"
@@ -189,7 +202,13 @@ const TestAMM = () => {
           />
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: 8,
+        }}
+      >
         <button onClick={getSwapExactOut}>Est Output</button>
         <button onClick={onSwap}>Swap</button>
         <button onClick={onClear}>Clear</button>
