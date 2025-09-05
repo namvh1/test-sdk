@@ -151,7 +151,7 @@ const TestAMM = () => {
     );
 
     const amountInWithSlippage = get(res, "amountInWithSlippage", 0)
-      .toFixed(6)
+      .toFixed(9)
       .toString();
     console.log("🚀 ~ onSwap ~ amountInWithSlippage:", amountInWithSlippage);
     const result = await swapSaros(
