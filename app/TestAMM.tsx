@@ -62,16 +62,16 @@ const SLIPPAGE = 0.5;
 const poolParams = {
   address: "2wUvdZA8ZsY714Y5wUL9fkFmupJGGwzui2N74zqJWgty",
   tokens: {
-    EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v: {
-      ...USDC_TOKEN,
-    },
     C98A4nkJXhpVZNAZdHUA95RpTF3T4whtQubL3YobiUX9: {
       ...C98_TOKEN,
     },
+    EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v: {
+      ...USDC_TOKEN,
+    },
   },
   tokenIds: [
-    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
     "C98A4nkJXhpVZNAZdHUA95RpTF3T4whtQubL3YobiUX9",
+    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
   ],
 };
 
@@ -101,10 +101,10 @@ const TestAMM = () => {
         },
       }
     );
-    // const fromMint = SAROS_TOKEN.mintAddress;
-    // const toMint = SENTRE_TOKEN.mintAddress;
-    const toMint = USDC_TOKEN.mintAddress;
-    const fromMint = C98_TOKEN.mintAddress;
+    // const fromMint = C98_TOKEN.mintAddress;
+    // const toMint = USDC_TOKEN.mintAddress;
+    const toMint = C98_TOKEN.mintAddress;
+    const fromMint = USDC_TOKEN.mintAddress;
     const toAmount = Number(output);
     // const estSwap = await getSwapAmountSaros(
     //   connection,
@@ -147,10 +147,10 @@ const TestAMM = () => {
       }
     );
     // const connection = liquidityBookServices.connection;
-    const fromTokenAccount = USDC_TOKEN.addressSPL;
-    const toTokenAccount = C98_TOKEN.addressSPL;
-    const toMint = USDC_TOKEN.mintAddress;
-    const fromMint = C98_TOKEN.mintAddress;
+    const fromTokenAccount = C98_TOKEN.addressSPL;
+    const toTokenAccount = USDC_TOKEN.addressSPL;
+    const toMint = C98_TOKEN.mintAddress;
+    const fromMint = USDC_TOKEN.mintAddress;
     const res = await getSwapExactOutSaros(
       connection,
       fromMint,
@@ -202,7 +202,7 @@ const TestAMM = () => {
             gap: 8,
           }}
         >
-          <div>{C98_TOKEN.name}</div>
+          <div>{USDC_TOKEN.name}</div>
           <input
             style={{ border: "1px solid black", padding: 4 }}
             placeholder="Input"
@@ -212,7 +212,7 @@ const TestAMM = () => {
           />
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div>{USDC_TOKEN.name}</div>
+          <div>{C98_TOKEN.name}</div>
           <input
             style={{ border: "1px solid black", padding: 4 }}
             placeholder="Output"
