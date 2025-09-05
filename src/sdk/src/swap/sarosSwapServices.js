@@ -508,7 +508,7 @@ export const swapSaros = async (
   fromCoinMint,
   toCoinMint
 ) => {
-  const amountIn = convertBalanceToWei(amountFrom, 9);
+  const amountIn = convertBalanceToWei(amountFrom, 6);
   const minimumAmountOut = convertBalanceToWei(minimumAmountTo, 6);
   const transaction = await createTransactions(connection, walletAddress);
   const tokenSwapProgramId = SAROS_SWAP_PROGRAM_ADDRESS_V1;

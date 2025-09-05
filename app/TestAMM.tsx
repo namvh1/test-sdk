@@ -17,51 +17,61 @@ import { get } from "lodash";
 //   },
 // });
 
-// const USDC_TOKEN = {
-//   id: "usd-coin",
-//   mintAddress: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-//   symbol: "usdc",
-//   name: "USD Coin",
-//   icon: "https://assets.coingecko.com/coins/images/6319/standard/usdc.png?1696506694",
-//   decimals: "6",
-//   addressSPL: "DCeWKeJHgjSX6ceqtmrcNMAxiHVdXoWnSapf4YgoaR6s",
+const USDC_TOKEN = {
+  id: "usd-coin",
+  mintAddress: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  symbol: "usdc",
+  name: "USD Coin",
+  icon: "https://assets.coingecko.com/coins/images/6319/standard/usdc.png?1696506694",
+  decimals: "6",
+  addressSPL: "DCeWKeJHgjSX6ceqtmrcNMAxiHVdXoWnSapf4YgoaR6s",
+};
+
+// const SENTRE_TOKEN = {
+//   id: "sentre",
+//   mintAddress: "SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M",
+//   symbol: "sntr",
+//   name: "SENTRE",
+//   icon: "https://assets.coingecko.com/coins/images/19268/standard/sentre.PNG?1696518712",
+//   decimals: "9",
+//   addressSPL: "FaUcnazRBgc4yfrjF5YCDqvreSRVguS4CbHnJaicwngB",
 // };
 
-const SENTRE_TOKEN = {
-  id: "sentre",
-  mintAddress: "SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M",
-  symbol: "sntr",
-  name: "SENTRE",
+const C98_TOKEN = {
+  id: "coin98",
+  mintAddress: "C98A4nkJXhpVZNAZdHUA95RpTF3T4whtQubL3YobiUX9",
+  symbol: "c98",
+  name: "COIN98",
   icon: "https://assets.coingecko.com/coins/images/19268/standard/sentre.PNG?1696518712",
-  decimals: "9",
-  addressSPL: "FaUcnazRBgc4yfrjF5YCDqvreSRVguS4CbHnJaicwngB",
+  decimals: "6",
+  addressSPL: "916G4qVM1jFBgJfBDZWnxrDbRJyjpMCv9cdoyqWLL9mq",
 };
 
-const SAROS_TOKEN = {
-  id: "saros",
-  mintAddress: "SarosY6Vscao718M4A778z4CGtvcwcGef5M9MEH1LGL",
-  symbol: "SAROS",
-  name: "SAROS",
-  icon: "https://assets.coingecko.com/markets/images/861/large/saros.png?1754059184",
-  decimals: "6",
-  addressSPL: "8UiwUadF2qxakeDZQNLjsQ4viy2FQdFJ4m5wsoNrNbMU",
-};
+// const SAROS_TOKEN = {
+//   id: "saros",
+//   mintAddress: "SarosY6Vscao718M4A778z4CGtvcwcGef5M9MEH1LGL",
+//   symbol: "SAROS",
+//   name: "SAROS",
+//   icon: "https://assets.coingecko.com/markets/images/861/large/saros.png?1754059184",
+//   decimals: "6",
+//   addressSPL: "8UiwUadF2qxakeDZQNLjsQ4viy2FQdFJ4m5wsoNrNbMU",
+// };
 
 const SLIPPAGE = 0.5;
 
 const poolParams = {
-  address: "7WNts5nnN42V1DfWM7TNRyhnqtv4jWTTRufCfShdQDQa",
+  address: "2wUvdZA8ZsY714Y5wUL9fkFmupJGGwzui2N74zqJWgty",
   tokens: {
-    SarosY6Vscao718M4A778z4CGtvcwcGef5M9MEH1LGL: {
-      ...SAROS_TOKEN,
+    EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v: {
+      ...USDC_TOKEN,
     },
-    SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M: {
-      ...SENTRE_TOKEN,
+    C98A4nkJXhpVZNAZdHUA95RpTF3T4whtQubL3YobiUX9: {
+      ...C98_TOKEN,
     },
   },
   tokenIds: [
-    "SarosY6Vscao718M4A778z4CGtvcwcGef5M9MEH1LGL",
-    "SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M",
+    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "C98A4nkJXhpVZNAZdHUA95RpTF3T4whtQubL3YobiUX9",
   ],
 };
 
@@ -93,8 +103,8 @@ const TestAMM = () => {
     );
     // const fromMint = SAROS_TOKEN.mintAddress;
     // const toMint = SENTRE_TOKEN.mintAddress;
-    const toMint = SAROS_TOKEN.mintAddress;
-    const fromMint = SENTRE_TOKEN.mintAddress;
+    const toMint = USDC_TOKEN.mintAddress;
+    const fromMint = C98_TOKEN.mintAddress;
     const toAmount = Number(output);
     // const estSwap = await getSwapAmountSaros(
     //   connection,
@@ -137,10 +147,10 @@ const TestAMM = () => {
       }
     );
     // const connection = liquidityBookServices.connection;
-    const fromTokenAccount = SAROS_TOKEN.addressSPL;
-    const toTokenAccount = SENTRE_TOKEN.addressSPL;
-    const toMint = SAROS_TOKEN.mintAddress;
-    const fromMint = SENTRE_TOKEN.mintAddress;
+    const fromTokenAccount = USDC_TOKEN.addressSPL;
+    const toTokenAccount = C98_TOKEN.addressSPL;
+    const toMint = USDC_TOKEN.mintAddress;
+    const fromMint = C98_TOKEN.mintAddress;
     const res = await getSwapExactOutSaros(
       connection,
       fromMint,
@@ -151,7 +161,7 @@ const TestAMM = () => {
     );
 
     const amountInWithSlippage = get(res, "amountInWithSlippage", 0)
-      .toFixed(9)
+      .toFixed(6)
       .toString();
     console.log("🚀 ~ onSwap ~ amountInWithSlippage:", amountInWithSlippage);
     const result = await swapSaros(
@@ -192,17 +202,17 @@ const TestAMM = () => {
             gap: 8,
           }}
         >
-          <div>{SENTRE_TOKEN.name}</div>
+          <div>{C98_TOKEN.name}</div>
           <input
             style={{ border: "1px solid black", padding: 4 }}
             placeholder="Input"
             // onChange={onChange}
-            value={Number(input).toFixed(9)}
+            value={Number(input).toFixed(6)}
             name="input"
           />
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div>{SAROS_TOKEN.name}</div>
+          <div>{USDC_TOKEN.name}</div>
           <input
             style={{ border: "1px solid black", padding: 4 }}
             placeholder="Output"
