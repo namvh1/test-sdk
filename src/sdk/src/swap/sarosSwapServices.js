@@ -1,8 +1,8 @@
 /* eslint-disable new-cap */
-import { SarosSwapInstructionService } from './sarosSwapIntructions';
-import { Keypair, PublicKey, SystemProgram } from '@solana/web3.js';
-import { cloneDeep } from 'lodash';
-import BN from 'bn.js';
+import { SarosSwapInstructionService } from "./sarosSwapIntructions";
+import { Keypair, PublicKey, SystemProgram } from "@solana/web3.js";
+import { cloneDeep } from "lodash";
+import BN from "bn.js";
 import {
   HOST_FEE_DENOMINATOR,
   HOST_FEE_NUMERATOR,
@@ -17,14 +17,14 @@ import {
   TOKEN_PROGRAM_ID,
   TRADING_FEE_DENOMINATOR,
   TRADING_FEE_NUMERATOR,
-} from '../constants';
-import { TokenProgramInstructionService } from '../common/tokenProgramInstructionService';
-import { closeAccount } from '@project-serum/serum/lib/token-instructions';
+} from "../constants";
+import { TokenProgramInstructionService } from "../common/tokenProgramInstructionService";
+import { closeAccount } from "@project-serum/serum/lib/token-instructions";
 import {
   convertBalanceToWei,
   convertWeiToBalance,
   renderAmountSlippage,
-} from '../functions';
+} from "../functions";
 import {
   findAssociatedTokenAddress,
   getTokenAccountInfo,
@@ -36,7 +36,7 @@ import {
   createTransactions,
   sendTransaction,
   isAddressInUse,
-} from '../common';
+} from "../common";
 
 export const getPoolInfo = async (connection, poolAddress) => {
   const accountInfo = await connection.getAccountInfo(poolAddress);
@@ -508,7 +508,7 @@ export const swapSaros = async (
   fromCoinMint,
   toCoinMint
 ) => {
-  const amountIn = convertBalanceToWei(amountFrom, 6);
+  const amountIn = convertBalanceToWei(amountFrom, 9);
   const minimumAmountOut = convertBalanceToWei(minimumAmountTo, 6);
   const transaction = await createTransactions(connection, walletAddress);
   const tokenSwapProgramId = SAROS_SWAP_PROGRAM_ADDRESS_V1;
@@ -933,18 +933,20 @@ export const getSwapExactOutSaros = async (
   const inputTokenInfo = tokens[inputTokenAccount.mint.toString()];
   const outputTokenAccount = tokenInfos[1];
   const outputTokenInfo = tokens[outputTokenAccount.mint.toString()];
+
   const convertAmountInputToken = parseFloat(
     convertWeiToBalance(
-      inputTokenAccount.amount.toNumber(),
+      Number(inputTokenAccount.amount),
       inputTokenInfo.decimals
     )
   );
   const convertAmountOutputToken = parseFloat(
     convertWeiToBalance(
-      outputTokenAccount.amount.toNumber(),
+      Number(outputTokenAccount.amount),
       outputTokenInfo.decimals
     )
   );
+
   const rateEst = convertAmountOutputToken / convertAmountInputToken;
   if (
     fromCoinMintClone === inputTokenInfo.mintAddress &&
@@ -954,12 +956,13 @@ export const getSwapExactOutSaros = async (
     const newPoolTokenOutAmount = convertAmountOutputToken - newAmount;
     const newPoolTokenInAmount = invariant / newPoolTokenOutAmount;
     const tokenInAmount = newPoolTokenInAmount - convertAmountInputToken;
+
     let tokenInAmountWithFee =
       (tokenInAmount *
-        (tradeFeeDenominator.toNumber() + tradeFeeNumerator.toNumber())) /
-      tradeFeeDenominator;
+        (Number(tradeFeeDenominator) + Number(tradeFeeNumerator))) /
+        Number(tradeFeeDenominator);
 
-    if (tradeFeeDenominator.toNumber() === 0 || tradeFeeNumerator.toNumber()) {
+    if (Number(tradeFeeDenominator) === 0 || Number(tradeFeeNumerator)) {
       tokenInAmountWithFee = tokenInAmount;
     }
 

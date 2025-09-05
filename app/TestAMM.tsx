@@ -17,14 +17,24 @@ import { get } from "lodash";
 //   },
 // });
 
-const USDC_TOKEN = {
-  id: "usd-coin",
-  mintAddress: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-  symbol: "usdc",
-  name: "USD Coin",
-  icon: "https://assets.coingecko.com/coins/images/6319/standard/usdc.png?1696506694",
-  decimals: "6",
-  addressSPL: "DCeWKeJHgjSX6ceqtmrcNMAxiHVdXoWnSapf4YgoaR6s",
+// const USDC_TOKEN = {
+//   id: "usd-coin",
+//   mintAddress: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+//   symbol: "usdc",
+//   name: "USD Coin",
+//   icon: "https://assets.coingecko.com/coins/images/6319/standard/usdc.png?1696506694",
+//   decimals: "6",
+//   addressSPL: "DCeWKeJHgjSX6ceqtmrcNMAxiHVdXoWnSapf4YgoaR6s",
+// };
+
+const SENTRE_TOKEN = {
+  id: "sentre",
+  mintAddress: "SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M",
+  symbol: "sntr",
+  name: "SENTRE",
+  icon: "https://assets.coingecko.com/coins/images/19268/standard/sentre.PNG?1696518712",
+  decimals: "9",
+  addressSPL: "FaUcnazRBgc4yfrjF5YCDqvreSRVguS4CbHnJaicwngB",
 };
 
 const SAROS_TOKEN = {
@@ -37,21 +47,21 @@ const SAROS_TOKEN = {
   addressSPL: "8UiwUadF2qxakeDZQNLjsQ4viy2FQdFJ4m5wsoNrNbMU",
 };
 
-const SLIPPAGE = 1;
+const SLIPPAGE = 0.5;
 
 const poolParams = {
-  address: "7EFmig3Jb9j1kJ7ppaUs5iY8P5pBnRdQXUR4q9vSCY37",
+  address: "7WNts5nnN42V1DfWM7TNRyhnqtv4jWTTRufCfShdQDQa",
   tokens: {
     SarosY6Vscao718M4A778z4CGtvcwcGef5M9MEH1LGL: {
       ...SAROS_TOKEN,
     },
-    EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v: {
-      ...USDC_TOKEN,
+    SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M: {
+      ...SENTRE_TOKEN,
     },
   },
   tokenIds: [
     "SarosY6Vscao718M4A778z4CGtvcwcGef5M9MEH1LGL",
-    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M",
   ],
 };
 
@@ -82,9 +92,9 @@ const TestAMM = () => {
       }
     );
     // const fromMint = SAROS_TOKEN.mintAddress;
-    // const toMint = USDC_TOKEN.mintAddress;
+    // const toMint = SENTRE_TOKEN.mintAddress;
     const toMint = SAROS_TOKEN.mintAddress;
-    const fromMint = USDC_TOKEN.mintAddress;
+    const fromMint = SENTRE_TOKEN.mintAddress;
     const toAmount = Number(output);
     // const estSwap = await getSwapAmountSaros(
     //   connection,
@@ -128,9 +138,9 @@ const TestAMM = () => {
     );
     // const connection = liquidityBookServices.connection;
     const fromTokenAccount = SAROS_TOKEN.addressSPL;
-    const toTokenAccount = USDC_TOKEN.addressSPL;
+    const toTokenAccount = SENTRE_TOKEN.addressSPL;
     const toMint = SAROS_TOKEN.mintAddress;
-    const fromMint = USDC_TOKEN.mintAddress;
+    const fromMint = SENTRE_TOKEN.mintAddress;
     const res = await getSwapExactOutSaros(
       connection,
       fromMint,
@@ -182,12 +192,12 @@ const TestAMM = () => {
             gap: 8,
           }}
         >
-          <div>{USDC_TOKEN.name}</div>
+          <div>{SENTRE_TOKEN.name}</div>
           <input
             style={{ border: "1px solid black", padding: 4 }}
             placeholder="Input"
             // onChange={onChange}
-            value={Number(input).toFixed(6)}
+            value={Number(input).toFixed(9)}
             name="input"
           />
         </div>
